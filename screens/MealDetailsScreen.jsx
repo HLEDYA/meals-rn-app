@@ -1,9 +1,34 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
+import { useLayoutEffect } from "react";
+import IconButton from "../components/IconButton";
 
 const MealDetailsScreen = (props) => {
   const route = useRoute();
+
+  const headerButtonPressHandler = () => {};
+
+  useLayoutEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => {
+        return (
+          <IconButton
+            icon="star"
+            color="white"
+            onPress={headerButtonPressHandler}
+          />
+        );
+      },
+    });
+  }, [props.navigation, headerButtonPressHandler]);
 
   const meal = route.params.meal;
   return (
