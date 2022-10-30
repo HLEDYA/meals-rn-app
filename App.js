@@ -30,7 +30,7 @@ function DrawerNavigator() {
         name="Categories"
         component={CategoriesScreen}
         options={{
-          title: "Categories",
+          title: "All Categories",
           drawerIcon: ({ color, size }) => (
             <Ionicons name="list" color={color} size={size} />
           ),
@@ -65,8 +65,7 @@ export default function App() {
             name="Drawer"
             component={DrawerNavigator}
             options={{
-              title: "All Categories",
-              headerShown: true,
+              headerShown: false,
             }}
           />
           <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
@@ -74,7 +73,7 @@ export default function App() {
             name="MealDetails"
             component={MealDetailsScreen}
             options={{
-              title: "Meal Details",
+              title: "About the Meal",
             }}
           />
         </Stack.Navigator>
