@@ -10,27 +10,41 @@ import {
 import { useRoute } from "@react-navigation/native";
 import { useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
+import { useSelector, useDispatch } from "react-redux";
+import { addFav, delFav } from "../store/redux/favorites";
 
 const MealDetailsScreen = (props) => {
   const route = useRoute();
 
-  const headerButtonPressHandler = () => {};
+  const favMealIds = useSelector((state) => state.favMeals.ids);
+  const dispatch = useDispatch();
+
+  const meal = route.params.meal;
+
+  const isFav = favMealIds.includes(meal.id);
+
+  const toggleFavHandler = () => {
+    if (isFav) {
+      dispatch(delFav({ id: meal.id }));
+    } else {
+      dispatch(addFav({ id: meal.id }));
+    }
+  };
 
   useLayoutEffect(() => {
     props.navigation.setOptions({
       headerRight: () => {
         return (
           <IconButton
-            icon="star"
+            icon={isFav ? "star" : "star-outline"}
             color="white"
-            onPress={headerButtonPressHandler}
+            onPress={toggleFavHandler}
           />
         );
       },
     });
-  }, [props.navigation, headerButtonPressHandler]);
+  }, [props.navigation, toggleFavHandler]);
 
-  const meal = route.params.meal;
   return (
     <ScrollView style={styles.container}>
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
